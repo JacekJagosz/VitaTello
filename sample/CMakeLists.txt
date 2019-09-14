@@ -24,6 +24,7 @@ target_link_libraries(${PROJECT_NAME}.elf
 	SceNetCtl_stub
 	SceNet_stub
 	SceSysmodule_stub
+	SceCtrl_stub
 	)
 
 vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME}.elf)
