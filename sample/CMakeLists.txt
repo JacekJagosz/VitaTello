@@ -12,6 +12,7 @@ project(VitaTello)
 include("${VITASDK}/share/vita.cmake" REQUIRED)
 
 set(VITA_TITLEID "JAGJ00001")
+set(VITA_VERSION  "0.01")
 
 set(CFLAGS "-Wl,-q -Wall -O3")
 
@@ -30,4 +31,4 @@ target_link_libraries(${PROJECT_NAME}.elf
 vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME}.elf)
 vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
 	NAME ${PROJECT_NAME}
-        )
+)

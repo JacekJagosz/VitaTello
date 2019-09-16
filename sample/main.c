@@ -28,6 +28,7 @@ int main()
     sceKernelDelayThread(5*1000*1000);
 	debugNetPrintf(-1,"command");
     sceKernelDelayThread(5*1000*1000);
+    debugNetPrintf(-1,"speed 50");
     do{
         sceKernelDelayThread(100*1000);
         unsigned int previousButtons = ctrl.buttons;
@@ -36,6 +37,8 @@ int main()
         if(pressedButtons == SCE_CTRL_TRIANGLE) debugNetPrintf(-1,"emergency");
         else if(pressedButtons == SCE_CTRL_CROSS) debugNetPrintf(-1,"takeoff");
         else if(pressedButtons == SCE_CTRL_CIRCLE) debugNetPrintf(-1,"land");
+        else if(pressedButtons == SCE_CTRL_SELECT) debugNetPrintf(-1,"speed 50");
+        else if(pressedButtons == SCE_CTRL_START) debugNetPrintf(-1,"speed 100");
         else debugNetPrintf(-1,"rc %i %i %i %i", rc(ctrl.rx), -1 * rc(ctrl.ry), -1 * rc(ctrl.ly), rc(ctrl.lx));
     }while(1);
     
