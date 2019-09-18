@@ -13,9 +13,9 @@ VitaTello
   
 ## TO DO:
 ### High priority:
-  - add sport (high speed) mode
+  - add sport (high speed) mode - transfer to [Low-Level protocol](https://tellopilots.com/wiki/protocol/)
   - replace arbitrary delays when sending commands with something better
-  - create (or hopefully find a suitable library) a UDP server on Vita
+  - create (or hopefully find a suitable library) a UDP server on Vita - transfer to [ENet](https://github.com/cgutman/enet/tree/master)
   - receive telemetry from Tello, most importantly battery and WiFi signal
   - figure out a way to display video stream (FFMPEG and SDL?)
   - save photos and videos
