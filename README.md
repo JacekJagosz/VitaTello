@@ -21,7 +21,7 @@ VitaTello
   - save photos and videos
 ### Low prioroty:
   - strip down current library and understand it better
-  - add pictures for LiveArea
+  - ~~add pictures for LiveArea~~
   - add a config file or settings so you can change e.g. deadzone without recompiling
   - add Mode 1 controll scheme
   
