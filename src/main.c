@@ -1,10 +1,15 @@
-#include <debugnet.h>
+//#include <debugnet.h>
+#include <enet/enet.h>
 #include <psp2/kernel/processmgr.h>
 #include <psp2/kernel/threadmgr.h>
 #include <psp2/ctrl.h>
+#include <psp2/sysmodule.h>
+#include <psp2/net/net.h>
+#include <psp2/net/netctl.h>
+#include <string.h>
 
-//#define PC
-#define TELLO
+#define PC
+//#define TELLO
 
 #ifdef TELLO
 #define ip_server "192.168.10.1"
@@ -20,9 +25,38 @@
 const float stickMultiplier = (float)101/(128-stickDeadzone);
 int rc(int a);
 
+ENetAddress address;
+ENetAddress pc;
+ENetHost * server;
+ENetPeer *peer;
+
 int main()
 {
-	debugNetInit(ip_server,port_server,DEBUG);
+	
+    int ret = 0;
+
+    ret = sceSysmoduleLoadModule(SCE_SYSMODULE_NET);
+
+    size_t net_mem_sz = 100 * 1024;
+    SceNetInitParam net_param = {0};
+    net_param.memory = calloc(net_mem_sz, 1);
+    net_param.size = net_mem_sz;
+    ret = sceNetInit(&net_param);
+
+    ret = sceNetCtlInit();
+    sceKernelDelayThread(2*1000*1000);
+    address.host = ENET_HOST_ANY;
+    //address.port = port_server;
+    server = enet_host_create (NULL, 32, 2, 0, 0);
+    enet_address_set_host (& pc, "192.168.1.9");
+    pc.port = port_server;
+    ENetPacket * packet = enet_packet_create ("packet", strlen ("packet") + 1, ENET_PACKET_FLAG_RELIABLE);
+    peer = enet_host_connect (server, & pc, 2, 0);
+    enet_host_flush (server);
+    enet_peer_send (peer, 0, packet);
+    enet_host_flush (server);
+    sceKernelDelayThread(5*1000*1000);
+    /*debugNetInit(ip_server,port_server,DEBUG);
     sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
     SceCtrlData ctrl;
     sceKernelDelayThread(5*1000*1000);
@@ -43,6 +77,9 @@ int main()
     }while(1);
     
 	debugNetFinish();
+    */
+    enet_host_destroy(server);
+    atexit (enet_deinitialize);
 	sceKernelExitProcess(0);
 	return 0;
 }

@@ -16,18 +16,34 @@ set(VITA_VERSION  "00.01")
 
 set(CFLAGS "-Wl,-q -Wall -O3")
 
+include_directories(
+    third_party/vita-enet/include/
+)
+
 add_executable(${PROJECT_NAME}.elf 
     src/main.c
+    third_party/vita-enet/callbacks.c
+	third_party/vita-enet/compress.c
+	third_party/vita-enet/host.c
+	third_party/vita-enet/list.c
+	third_party/vita-enet/packet.c
+	third_party/vita-enet/peer.c
+	third_party/vita-enet/protocol.c
+	third_party/vita-enet/vita.c
 )
 target_compile_options(${PROJECT_NAME}.elf PRIVATE ${CFLAGS})
 
 target_link_libraries(${PROJECT_NAME}.elf
         c
-	debugnet
+	#debugnet
 	SceNetCtl_stub
 	SceNet_stub
 	SceSysmodule_stub
 	SceCtrl_stub
+	ScePower_stub
+	SceVideodec_stub
+	SceCommonDialog_stub
+	SceIme_stub
 	)
 
 vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME}.elf)
