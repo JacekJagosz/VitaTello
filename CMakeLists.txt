@@ -16,14 +16,19 @@ set(VITA_VERSION  "00.01")
 
 set(CFLAGS "-Wl,-q -Wall -O3")
 
+include_directories(
+    third_party/libdebugnet/include/
+)
+
 add_executable(${PROJECT_NAME}.elf 
     src/main.c
+    third_party/libdebugnet/source/debugnet.c
 )
 target_compile_options(${PROJECT_NAME}.elf PRIVATE ${CFLAGS})
 
 target_link_libraries(${PROJECT_NAME}.elf
         c
-	debugnet
+	#debugnet
 	SceNetCtl_stub
 	SceNet_stub
 	SceSysmodule_stub
