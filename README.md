@@ -8,12 +8,14 @@ VitaTello
  
   This is meant to become a remote control app for PS Vita.
   It currently can fly Tello using analog sticks, takeoff(X), land(O) and turn off the engines in case of emergency (△).
-  You can also change speed to 5m/s (SELECT - default) and 10m/s (START).
+  You can also change speed to 5m/s (SELECT) and 10m/s (START - default).
   UDP communication is based on psxdev's [debugnet](https://github.com/psxdev/debugnet).
   
 ## TO DO:
 ### High priority:
+  - create another app to experiment with UDP
   - strip down current library and understand it better
+  - add debugScreen to help further development
   - create (or hopefully find a suitable library) a UDP server on Vita - ~~transfer to [ENet](https://github.com/cgutman/enet/tree/master)~~ - turns out Enet uses custom protocol
   - receive telemetry from Tello, most importantly battery and WiFi signal
   - figure out a way to display video stream (FFMPEG and SDL?)

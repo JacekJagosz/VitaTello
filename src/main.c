@@ -26,20 +26,20 @@ int main()
     sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
     SceCtrlData ctrl;
     sceKernelDelayThread(5*1000*1000);
-	debugNetPrintf(-1,"command");
+	debugNetUDPPrintf("%s","command");
     sceKernelDelayThread(5*1000*1000);
-    debugNetPrintf(-1,"speed 50");
+    debugNetUDPPrintf("%s","speed 100");
     do{
         sceKernelDelayThread(100*1000);
         unsigned int previousButtons = ctrl.buttons;
         sceCtrlPeekBufferPositive(0, &ctrl, 1);
         unsigned int pressedButtons = ((previousButtons ^ ctrl.buttons) & ctrl.buttons); //determine which buttons have just been depressed; 1 for pressed, 0 for anything else
-        if(pressedButtons == SCE_CTRL_TRIANGLE) debugNetPrintf(-1,"emergency");
-        else if(pressedButtons == SCE_CTRL_CROSS) debugNetPrintf(-1,"takeoff");
-        else if(pressedButtons == SCE_CTRL_CIRCLE) debugNetPrintf(-1,"land");
-        else if(pressedButtons == SCE_CTRL_SELECT) debugNetPrintf(-1,"speed 50");
-        else if(pressedButtons == SCE_CTRL_START) debugNetPrintf(-1,"speed 100");
-        else debugNetPrintf(-1,"rc %i %i %i %i", rc(ctrl.rx), -1 * rc(ctrl.ry), -1 * rc(ctrl.ly), rc(ctrl.lx));
+        if(pressedButtons == SCE_CTRL_TRIANGLE) debugNetUDPPrintf("%s","emergency");
+        else if(pressedButtons == SCE_CTRL_CROSS) debugNetUDPPrintf("%s","takeoff");
+        else if(pressedButtons == SCE_CTRL_CIRCLE) debugNetUDPPrintf("%s","land");
+        else if(pressedButtons == SCE_CTRL_SELECT) debugNetUDPPrintf("%s","speed 50");
+        else if(pressedButtons == SCE_CTRL_START) debugNetUDPPrintf("%s","speed 100");
+        else debugNetUDPPrintf("rc %i %i %i %i", rc(ctrl.rx), -1 * rc(ctrl.ry), -1 * rc(ctrl.ly), rc(ctrl.lx));
     }while(1);
     
 	debugNetFinish();

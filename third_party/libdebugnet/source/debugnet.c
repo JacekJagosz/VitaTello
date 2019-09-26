@@ -5,7 +5,7 @@
  */
 
 #include <stdio.h>
-#include <stdarg.h>
+#include <stdarg.h> //used for va_list
 #include <stdlib.h>
 #include <string.h>
 #include <psp2/net/net.h>
@@ -33,7 +33,7 @@ struct SceNetSockaddrIn stSockAddr;
  */
 void debugNetUDPPrintf(const char* fmt, ...)
 {
-  char buffer[0x800];
+  char buffer[0x800]; //2048
   va_list arg;
   va_start(arg, fmt);
   sceClibVsnprintf(buffer, sizeof(buffer), fmt, arg);
@@ -68,6 +68,7 @@ void debugNetUDPSend(const char *text)
  *
  * @param level - NONE,INFO,ERROR or DEBUG
  */
+/* This is not necessary as I don't need debug message for my usecase
 void debugNetPrintf(int level, const char* format, ...) 
 {
 	char msgbuf[0x800];
@@ -103,6 +104,7 @@ void debugNetPrintf(int level, const char* format, ...)
        
 	}
 }
+*/
 /**
  * Set log level for debugnet library 
  *
@@ -112,6 +114,7 @@ void debugNetPrintf(int level, const char* format, ...)
  * @endcode
  * @param level - DEBUG,ERROR,INFO or NONE 
  */
+/*
 void debugNetSetLogLevel(int level)
 {
 	if(dconfig)
@@ -119,6 +122,7 @@ void debugNetSetLogLevel(int level)
 		dconfig->logLevel=level;	
 	}
 }
+*/
 /**
  * Init debugnet library 
  *
@@ -144,7 +148,7 @@ int debugNetInit(const char *serverIp, int port, int level)
 		return dconfig->debugnet_initialized;
 	}
 	
-	debugNetSetLogLevel(level);
+	//debugNetSetLogLevel(level);
     
     
 	if (sceSysmoduleIsLoaded(SCE_SYSMODULE_NET) != SCE_SYSMODULE_LOADED)
@@ -223,6 +227,7 @@ int debugNetSetConf(debugNetConfiguration *conf)
 	
 	return 0;	
 }
+/*
 int debugNetInitWithConf(debugNetConfiguration *conf)
 {
 	int ret;
@@ -238,8 +243,8 @@ int debugNetInitWithConf(debugNetConfiguration *conf)
 	{
 		return 0;
 	}
-	
 }
+*/
 int debugNetCreateConf()
 {	
 	if(!dconfig)
@@ -247,7 +252,7 @@ int debugNetCreateConf()
 		dconfig=malloc(sizeof(debugNetConfiguration));
 		dconfig->debugnet_initialized=0;
 		dconfig->SocketFD = -1;
-		dconfig->logLevel=INFO;	
+		//dconfig->logLevel=INFO;	
 		return 0;
 	}
 	

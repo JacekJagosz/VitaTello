@@ -17,7 +17,7 @@ typedef struct debugNetConfiguration
 {
 	int debugnet_initialized;
 	int SocketFD;
-	int logLevel;
+	//int logLevel;
 	
 } debugNetConfiguration;
 
@@ -28,14 +28,14 @@ extern "C"
 
 
 int debugNetInit(const char *serverIp, int port, int level);
-int debugNetInitWithConf(debugNetConfiguration *conf);
+//int debugNetInitWithConf(debugNetConfiguration *conf);
 debugNetConfiguration *debugNetGetConf();
 int debugNetSetConf(debugNetConfiguration *conf);
 void debugNetFinish();
 void debugNetUDPSend(const char *text);
 void debugNetUDPPrintf(const char *format, ...);
-void debugNetPrintf(int level, const char* format, ...);
-void debugNetSetLogLevel(int level);
+//void debugNetPrintf(int level, const char* format, ...); This is not necessary as I don't need debug message for my usecase
+//void debugNetSetLogLevel(int level);
 int debugNetCreateConf();
 
 #ifdef __cplusplus
