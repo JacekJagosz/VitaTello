@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     if(DEFINED ENV{VITASDK})
@@ -15,7 +15,8 @@ set(VITA_TITLEID "JAGJ00001")
 set(VITA_VERSION  "00.01")
 
 #must be a list: a single space-separated string reaches the compiler as one
-#token, so -Wall and -O3 were silently never applied
+#token, so -Wall and -O3 were silently never applied.
+#-Wl,-q is not needed here, vita.cmake already adds it
 set(CFLAGS -Wall -O3)
 
 include_directories(
@@ -27,9 +28,6 @@ add_executable(${PROJECT_NAME}.elf
     third_party/libdebugnet/source/debugnet.c
 )
 target_compile_options(${PROJECT_NAME}.elf PRIVATE ${CFLAGS})
-
-#-Wl,-q keeps the relocations that vita_create_self needs; it is a link flag
-target_link_options(${PROJECT_NAME}.elf PRIVATE -Wl,-q)
 
 target_link_libraries(${PROJECT_NAME}.elf
         c
