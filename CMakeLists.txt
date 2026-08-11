@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     if(DEFINED ENV{VITASDK})
@@ -14,7 +14,10 @@ include("${VITASDK}/share/vita.cmake" REQUIRED)
 set(VITA_TITLEID "JAGJ00001")
 set(VITA_VERSION  "00.01")
 
-set(CFLAGS "-Wl,-q -Wall -O3")
+#must be a list: a single space-separated string reaches the compiler as one
+#token, so -Wall and -O3 were silently never applied.
+#-Wl,-q is not needed here, vita.cmake already adds it
+set(CFLAGS -Wall -O3)
 
 include_directories(
     third_party/libdebugnet/include/
